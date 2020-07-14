@@ -1,0 +1,23 @@
+﻿<Window x:Class="BookShopMiniApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookShopMiniApp"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="600">
+    <Grid>
+        <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Height="30" Margin="316,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204" FontSize="16" GotFocus="txtUserName_GotFocus"/>
+        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="30" Margin="316,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" FontSize="16" AutomationProperties.AccessKey="********" GotFocus="txtPassword_GotFocus"/>
+        <Button x:Name="loginBtn" Content="Login" HorizontalAlignment="Left" Height="30" Margin="256,190,0,0" VerticalAlignment="Top" Width="90" Background="#FFD1D917" FontSize="14" Click="loginBtn_Click_1"/>
+        <Button x:Name="cancelBtn" Content="Cancel" HorizontalAlignment="Left" Height="30" Margin="480,190,0,0" VerticalAlignment="Top" Width="90" Background="#FFF35C43" FontSize="14"/>
+        <CheckBox Content="Password Show" HorizontalAlignment="Left" Height="20" Margin="315,150,0,0" VerticalAlignment="Top" Width="210" FontFamily="Comic Sans MS" Foreground="#FF2FC509" FontSize="14"/>
+        <Button x:Name="addUserBtn" Content="Add User" HorizontalAlignment="Left" Height="30" Margin="370,190,0,0" VerticalAlignment="Top" Width="90" Background="#FFD1D917" FontSize="14" Click="addUserBtn_Click"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="60,40,0,0" TextWrapping="Wrap" Text="tSun.Books Mini Application" VerticalAlignment="Top" Width="160" Background="#FFA5FB3D"/>
+        <Label x:Name="lblForgotPassword" Content="For got Password" HorizontalAlignment="Left" Height="30" Margin="135,355,0,0" VerticalAlignment="Top" Width="125" FontSize="14" Foreground="#FF2FC509"/>
+        <Label x:Name="lblChangePassword" Content="Change Password" HorizontalAlignment="Left" Height="30" Margin="275,355,0,0" VerticalAlignment="Top" Width="125" FontSize="14" Foreground="#FF2FC509"/>
+        <Image HorizontalAlignment="Left" Height="130" Margin="60,65,0,0" VerticalAlignment="Top" Width="160" Source="MainLogo.png"/>
+        <Image HorizontalAlignment="Left" Height="30" Margin="270,40,0,0" VerticalAlignment="Top" Width="35" Source="usernamepic.jpg"/>
+        <Image HorizontalAlignment="Left" Height="30" Margin="270,100,0,0" VerticalAlignment="Top" Width="35" Source="keypic.jpg"/>
+    </Grid>
+</Window>

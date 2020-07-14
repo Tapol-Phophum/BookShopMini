@@ -1,0 +1,22 @@
+﻿<Window x:Class="BookShopMiniApp.Cashier"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookShopMiniApp"
+        mc:Ignorable="d"
+        Title="Cashier" Height="650" Width="650">
+    <Grid>
+        <Label x:Name="txtQty" Content="" HorizontalAlignment="Left" Height="105" Margin="215,15,0,0" VerticalAlignment="Top" Width="345" BorderThickness="1,1,1,7" BorderBrush="#FFF0DC1B" FontSize="48" IsEnabled="False"/>
+        <Label Content="จำนวนรายการ" HorizontalAlignment="Left" Height="50" Margin="50,15,0,0" VerticalAlignment="Top" Width="160" FontSize="24"/>
+        <Label x:Name="txtAmount" Content="" HorizontalAlignment="Left" Height="105" Margin="215,135,0,0" VerticalAlignment="Top" Width="345" BorderThickness="1,1,1,7" BorderBrush="#FF95F156" FontSize="48" IsEnabled="False"/>
+        <Label Content="ยอดรวม" HorizontalAlignment="Left" Height="50" Margin="50,135,0,0" VerticalAlignment="Top" Width="160" FontSize="24"/>
+        <Label x:Name="txtMoneyReceipt" Content="" HorizontalAlignment="Left" Height="105" Margin="220,265,0,0" VerticalAlignment="Top" Width="345" BorderThickness="1,1,1,7" BorderBrush="#FF8FF01B" FontSize="48"/>
+        <Label Content="รับเงิน" HorizontalAlignment="Left" Height="50" Margin="55,265,0,0" VerticalAlignment="Top" Width="160" FontSize="24"/>
+        <Label x:Name="txtMoneyChange" Content="" HorizontalAlignment="Left" Height="105" Margin="220,390,0,0" VerticalAlignment="Top" Width="345" BorderThickness="1,1,1,7" BorderBrush="#FFF0551B" FontSize="48" IsEnabled="False"/>
+        <Label Content="เงินทอน" HorizontalAlignment="Left" Height="50" Margin="55,390,0,0" VerticalAlignment="Top" Width="160" FontSize="24"/>
+        <Button x:Name="saveBtn" Content="เรียบร้อย" HorizontalAlignment="Left" Height="55" Margin="215,520,0,-6" VerticalAlignment="Top" Width="155" FontSize="16"/>
+        <Button x:Name="returnBtn" Content="กลับสู่รายการแก้ไข" HorizontalAlignment="Left" Height="55" Margin="400,520,0,-6" VerticalAlignment="Top" Width="155" FontSize="16"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,39 @@
+﻿<Window x:Class="BookShopMiniApp.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookShopMiniApp"
+        mc:Ignorable="d"
+        Title="MainMenu" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="customerBtn" Content="การจัดการลูกค้า" HorizontalAlignment="Left" Height="29" Margin="120,35,0,0" VerticalAlignment="Top" Width="140" RenderTransformOrigin="0.429,-0.125" FontSize="16" Click="customerBtn_Click_1">
+            <Button.Effect>
+                <DropShadowEffect Color="#FFF74040"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="bookManageBtn" Content="การจัดการหนังสือ" HorizontalAlignment="Left" Height="29" Margin="120,126,0,0" VerticalAlignment="Top" Width="140" RenderTransformOrigin="0.429,-0.125" FontSize="16" Click="bookManageBtn_Click">
+            <Button.Effect>
+                <DropShadowEffect Color="#FFF74040"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="orderBtn" Content="สั่งซื้อหนังสือ" HorizontalAlignment="Left" Height="29" Margin="120,216,0,0" VerticalAlignment="Top" Width="140" RenderTransformOrigin="0.429,-0.125" FontSize="16" Click="orderBtn_Click">
+            <Button.Effect>
+                <DropShadowEffect Color="#FFF74040"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="historyOrderBtn" Content="ประวัติสั่งซื้อหนังสือ" HorizontalAlignment="Left" Height="29" Margin="120,310,0,0" VerticalAlignment="Top" Width="140" RenderTransformOrigin="0.429,-0.125" FontSize="16" Click="historyOrderBtn_Click">
+            <Button.Effect>
+                <DropShadowEffect Color="#FFF74040"/>
+            </Button.Effect>
+        </Button>
+        <Label x:Name="lblDatabeseSetting" Content="สร้างตารางข้อมูล (Admin)" HorizontalAlignment="Left" Height="35" Margin="580,55,0,0" VerticalAlignment="Top" Width="180" FontSize="14" FontFamily="Calibri" Foreground="#FF832DBF" MouseDown="lblAdminSetting_MouseDown" HorizontalContentAlignment="Right"/>
+        <Label x:Name="lblLogout" Content="ออกจากระบบ" HorizontalAlignment="Left" Height="30" Margin="580,20,0,0" VerticalAlignment="Top" Width="180" TextOptions.TextHintingMode="Fixed" TextOptions.TextFormattingMode="Display" FontSize="14" MouseDown="lblLogout_MouseDown" HorizontalContentAlignment="Right"/>
+        <Label x:Name="lblAdminSetting" Content="เพิ่มผู้ใช้งาน (Admin)" HorizontalAlignment="Left" Height="35" Margin="580,95,0,0" VerticalAlignment="Top" Width="180" FontSize="14" FontFamily="Calibri" Foreground="#FF832DBF" MouseDown="lblAdminSetting_MouseDown" HorizontalContentAlignment="Right"/>
+        <Image HorizontalAlignment="Left" Height="70" Margin="45,15,0,0" VerticalAlignment="Top" Width="70" Source="CustomerMenu.png"/>
+        <Image HorizontalAlignment="Left" Height="70" Margin="45,105,0,0" VerticalAlignment="Top" Width="70" Source="BookMenu.png"/>
+        <Image HorizontalAlignment="Left" Height="70" Margin="40,195,0,0" VerticalAlignment="Top" Width="70" Source="OrderMenu.png"/>
+        <Image HorizontalAlignment="Left" Height="70" Margin="45,285,0,0" VerticalAlignment="Top" Width="70" Source="HistoryMenu.png"/>
+
+    </Grid>
+</Window>

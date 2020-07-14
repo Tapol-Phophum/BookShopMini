@@ -1,0 +1,24 @@
+﻿<Window x:Class="BookShopMiniApp.CustomersSearch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookShopMiniApp"
+        mc:Ignorable="d"
+        Title="CustomersSearch" Height="450" Width="600">
+    <Grid>
+        <Label Content="Double click in List View" HorizontalAlignment="Left" Margin="60,384,0,0" VerticalAlignment="Top" Width="175"/>
+        <Label Content="ค้นหา" HorizontalAlignment="Left" Height="25" Margin="30,15,0,0" VerticalAlignment="Top" Width="45"/>
+        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Height="25" Margin="165,20,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="270"/>
+        <ComboBox x:Name="cboSearch" HorizontalAlignment="Left" Height="25" Margin="75,20,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="searchBtn" Content="ค้นหา" HorizontalAlignment="Left" Height="25" Margin="450,20,0,0" VerticalAlignment="Top" Width="55"/>
+        <ListView x:Name="lsvCustomerList" HorizontalAlignment="Left" Height="295" Margin="35,75,0,0" VerticalAlignment="Top" Width="530">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>
