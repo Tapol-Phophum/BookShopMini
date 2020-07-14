@@ -40,7 +40,9 @@ namespace BookShopMiniApp
             login_User.UserName1 = txtUsername.Text;
             login_User.AuthorLevel1 = int.Parse(cboLevelAuthor.Text);
             login_User.Password1 = txtPassword.Password;
+            // ทำการบันทึกข้อมูล
             Login_User.AddData(login_User.UserID1, login_User.UserName1, login_User.AuthorLevel1, login_User.Password1);
+
             MessageBox.Show("Add data completed");
             Clear();
         }
@@ -97,5 +99,9 @@ namespace BookShopMiniApp
             txtPassword2.Password = "";
         }
 
+        private void searchBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

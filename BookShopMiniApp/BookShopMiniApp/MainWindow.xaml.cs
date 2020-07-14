@@ -66,16 +66,14 @@ namespace BookShopMiniApp
             using (SqliteConnection db =
                    new SqliteConnection($"Filename={dbpath}"))
             {
-                    db.Open();
-
-                    SqliteCommand selectCommand = new SqliteCommand(sql, db);
-
-                    SqliteDataReader query = selectCommand.ExecuteReader();
-
-                    while (query.Read())
-                    {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand(sql, db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
                     Welcome welcome = new Welcome(txtUserName.Text);
                     welcome.Show();
+                    return;
                 }
                 db.Close();
             }
