@@ -22,7 +22,7 @@ namespace BookShopMiniApp
                 String LoginTableCommand = "CREATE TABLE IF NOT " +
                     "EXISTS MyLogin (UserID NVARCHAR(13) PRIMARY KEY, " +
                     "UserName TEXT NOT NULL, " +
-                    "AuthorLevel INTEGER NOT NULL, " +
+                    "AuthorLevel TEXT NOT NULL, " +
                     "Password TEXT NOT NULL)";
                 SqliteCommand createLoginTable = new SqliteCommand(LoginTableCommand, db);
                 createLoginTable.ExecuteReader();

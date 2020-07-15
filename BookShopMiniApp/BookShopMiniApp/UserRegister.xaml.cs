@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,9 +37,9 @@ namespace BookShopMiniApp
             }
             else
 
-                login_User.UserID1 = txtUserID.Text;
+            login_User.UserID1 = txtUserID.Text;
             login_User.UserName1 = txtUsername.Text;
-            login_User.AuthorLevel1 = int.Parse(cboLevelAuthor.Text);
+            login_User.AuthorLevel1 = cboLevelAuthor.Text;
             login_User.Password1 = txtPassword.Password;
             // ทำการบันทึกข้อมูล
             Login_User.AddData(login_User.UserID1, login_User.UserName1, login_User.AuthorLevel1, login_User.Password1);
@@ -101,7 +102,27 @@ namespace BookShopMiniApp
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
+            string search = txtSearch.Text;
+            List<Login_User> listdata = new List<Login_User>();
+            using (SqliteConnection db = new SqliteConnection("Filename=LoginTable.db"))
+            {
+                db.Open();
 
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT * from MyLogin where UserID like " + "'%" + search + "%'" +
+                    " or UserName like" + "'%" + search + "%'"
+                    + " or Password like" + "'%" + search + "%'", db);
+
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    //listdata.Add(new Login_User { UserID1 = query.GetString(0),  UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
+                    listdata.Add(new Login_User { UserID1 = query.GetString(0),  UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
+                }
+                dgvUser.ItemsSource = listdata;
+                db.Close();
+            }
         }
     }
 }
