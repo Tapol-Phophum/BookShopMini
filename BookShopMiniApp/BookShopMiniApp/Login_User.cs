@@ -16,11 +16,11 @@ namespace BookShopMiniApp
 
         public string UserID1 { get => UserID; set => UserID = value; }
         public string UserName1 { get => UserName; set => UserName = value; }
-        public string AuthorLevel1 { get => AuthorLevel; set => AuthorLevel = value; }
         public string Password1 { get => Password; set => Password = value; }
+        public string AuthorLevel1 { get => AuthorLevel; set => AuthorLevel = value; }
 
         private static string dbpath = "LoginTable.db"; //Create object: db for index path
-        public static void AddData(string UserID1, string UserName1, int AuthorLevel1, string Password1)
+        public static void AddData(string UserID1, string UserName1, string AuthorLevel1, string Password1)
         {
             using (SqliteConnection db =
              new SqliteConnection($"Filename={dbpath}"))
@@ -41,10 +41,10 @@ namespace BookShopMiniApp
             }
         }
 
-        internal static void AddData(string userID1, string userName1, string authorLevel1, string password1)
-        {
-            throw new NotImplementedException();
-        }
+        //internal static void AddData(string userID1, string userName1, string authorLevel1, string password1)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public static List<String> GetData()
         {
@@ -69,6 +69,23 @@ namespace BookShopMiniApp
             }
             return entries;
         }
-
+        public static void CheckAuthorLogin(string userName, string passWord)
+        {
+            string sql = "SELECT* from MyLogin WHERE UserName ='" + userName + "'AND Password ='" + passWord + "'";
+            using (SqliteConnection db =
+                   new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand selectCommand = new SqliteCommand(sql, db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+                while (query.Read())
+                {
+                    Welcome welcome = new Welcome(userName);
+                    welcome.Show();
+                    return;
+                }
+                db.Close();
+            }
+        }
     }
 }

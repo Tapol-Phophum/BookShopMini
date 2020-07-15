@@ -11,8 +11,6 @@
         <Label x:Name="lblPassword" Content="รหัสผ่าน" HorizontalAlignment="Left" Height="27" Margin="5,210,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label x:Name="lblPassword2" Content="ยืนยันรหัสผ่าน" HorizontalAlignment="Left" Height="27" Margin="10,250,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="35" Margin="179,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20"/>
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="35" Margin="180,207,0,0" VerticalAlignment="Top" Width="270"/>
-        <PasswordBox x:Name="txtPassword2" HorizontalAlignment="Left" Height="35" Margin="180,250,0,0" VerticalAlignment="Top" Width="270"/>
         <Label x:Name="lblUserID" Content="รหัสพนักงาน" HorizontalAlignment="Left" Height="27" Margin="5,85,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <TextBox x:Name="txtUserID" HorizontalAlignment="Left" Height="35" Margin="179,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271" MaxLength="20"/>
         <Label x:Name="lblAuthor" Content="ระดับการเข้าถึงข้อมูล 1-5" HorizontalAlignment="Left" Height="27" Margin="10,168,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
@@ -25,6 +23,8 @@
         <Label x:Name="lblUserID_Copy" Content="รายการค้นหา" HorizontalAlignment="Left" Height="27" Margin="5,38,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Height="35" Margin="180,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" MaxLength="20"/>
         <DataGrid x:Name="dgvUser" HorizontalAlignment="Left" Height="330" Margin="45,310,0,0" VerticalAlignment="Top" Width="550"/>
+        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="35" Margin="180,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20"/>
+        <TextBox x:Name="txtPassword2" HorizontalAlignment="Left" Height="35" Margin="180,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20"/>
 
     </Grid>
 </Window>

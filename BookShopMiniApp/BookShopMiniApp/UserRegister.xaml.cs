@@ -40,9 +40,9 @@ namespace BookShopMiniApp
             login_User.UserID1 = txtUserID.Text;
             login_User.UserName1 = txtUsername.Text;
             login_User.AuthorLevel1 = cboLevelAuthor.Text;
-            login_User.Password1 = txtPassword.Password;
+            login_User.Password1 = txtPassword.Text;
             // ทำการบันทึกข้อมูล
-            Login_User.AddData(login_User.UserID1, login_User.UserName1, login_User.AuthorLevel1, login_User.Password1);
+            Login_User.AddData(login_User.UserID1, login_User.UserName1,login_User.AuthorLevel1, login_User.Password1);
 
             MessageBox.Show("Add data completed");
             Clear();
@@ -64,12 +64,12 @@ namespace BookShopMiniApp
                 lblContent += lblAuthor.Content;
                 return true;
             }
-            else if (String.IsNullOrEmpty(txtPassword.Password))
+            else if (String.IsNullOrEmpty(txtPassword.Text))
             {
                 lblContent += lblPassword.Content;
                 return true;
             }
-            else if (string.IsNullOrEmpty(txtPassword2.Password))
+            else if (string.IsNullOrEmpty(txtPassword2.Text))
             {
                 lblContent += lblPassword2.Content;
                 return true;
@@ -96,12 +96,13 @@ namespace BookShopMiniApp
         {
             txtUserID.Text = "";
             txtUsername.Text = "";
-            txtPassword.Password = "";
-            txtPassword2.Password = "";
+            txtPassword.Text = "";
+            txtPassword2.Text = "";
         }
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
+           
             string search = txtSearch.Text;
             List<Login_User> listdata = new List<Login_User>();
             using (SqliteConnection db = new SqliteConnection("Filename=LoginTable.db"))

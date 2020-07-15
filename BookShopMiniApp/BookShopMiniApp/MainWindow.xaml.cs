@@ -28,25 +28,26 @@ namespace BookShopMiniApp
             DataAccessUser.InitializeLoginDatabase();
             txtUserName.Focus();
         }
-        private static string dbpath = "LoginTable.db";
 
-        private void txtUserName_GotFocus(object sender, RoutedEventArgs e)
-        {
-            txtUserName.Text = "";
-        }
+        //private void txtUserName_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    txtUserName.Text = "";
+        //}
 
-        private void txtPassword_GotFocus(object sender, RoutedEventArgs e)
-        {
-            txtPassword.Text = "";
-        }
+        //private void txtPassword_GotFocus(object sender, RoutedEventArgs e)
+        //{
+        //    txtPassword.Password = "";
+        //}
 
         private void addUserBtn_Click(object sender, RoutedEventArgs e)
         {
             if ((txtUserName.Text == "Admin") || (txtUserName.Text == "admin"))
             {
-                if (txtPassword.Text == "admin")
+                if (txtPassword.Password == "admin")
                 {
+
                     UserRegister userRegister = new UserRegister();
+                    this.Close();
                     userRegister.Show();
                 }
                 else
@@ -59,24 +60,47 @@ namespace BookShopMiniApp
                 MessageBox.Show("โปรดติดต่อผู้ขายขอ UserName ที่ถูกต้อง");
             }
         }
-
-        private void loginBtn_Click_1(object sender, RoutedEventArgs e)
+        private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-             string sql = "SELECT* from MyLogin WHERE UserName ='" + txtUserName.Text + "'AND Password ='" + txtPassword.Text + "'";
-            using (SqliteConnection db =
-                   new SqliteConnection($"Filename={dbpath}"))
-            {
-                db.Open();
-                SqliteCommand selectCommand = new SqliteCommand(sql, db);
-                SqliteDataReader query = selectCommand.ExecuteReader();
-                while (query.Read())
-                {
-                    Welcome welcome = new Welcome(txtUserName.Text);
-                    welcome.Show();
-                    return;
-                }
-                db.Close();
-            }
+            Login_User.CheckAuthorLogin(txtUserName.Text, txtPassword.Password);
+        }
+
+        private void cancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void chbPasswordShow_Checked(object sender, RoutedEventArgs e)
+        {
+            txtPassword.PasswordChar = default(char);
+        }
+        private void ShowPasswordFunction()
+        {
+            ShowPassword.Text = "HIDE";
+            txtPasswordUnmask.Visibility = Visibility.Visible;
+            txtPassword.Visibility = Visibility.Hidden;
+            txtPasswordUnmask.Text = txtPassword.Password;
+        }
+
+        private void HidePasswordFunction()
+        {
+            ShowPassword.Text = "SHOW";
+            txtPasswordUnmask.Visibility = Visibility.Hidden;
+            txtPassword.Visibility = Visibility.Visible;
+        }
+
+        private void ShowPassword_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            HidePasswordFunction();
+        }
+
+        private void ShowPassword_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ShowPasswordFunction();
+        }
+
+        private void ShowPassword_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            HidePasswordFunction();
         }
     }
 }
