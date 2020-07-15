@@ -88,7 +88,6 @@
     <Compile Include="DataAccessBooks.cs" />
     <Compile Include="DataAccessUser.cs" />
     <Compile Include="Login_User.cs" />
-    <Compile Include="revealModeCheckBox\IsChecked.cs" />
     <Compile Include="TransactionPurchase.xaml.cs">
       <DependentUpon>TransactionPurchase.xaml</DependentUpon>
     </Compile>

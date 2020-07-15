@@ -16,7 +16,7 @@
         <Label x:Name="lblAuthor" Content="ระดับการเข้าถึงข้อมูล 1-5" HorizontalAlignment="Left" Height="27" Margin="10,168,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <ComboBox x:Name="cboLevelAuthor" HorizontalAlignment="Left" Height="35" Margin="180,165,0,0" VerticalAlignment="Top" Width="90"/>
         <Button x:Name="addBtn" Content="เพิ่ม" HorizontalAlignment="Left" Height="60" Margin="485,80,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFABFB68" FontSize="20" Click="addBtn_Click"/>
-        <Button x:Name="deleteBtn" Content="ลบ" HorizontalAlignment="Left" Height="60" Margin="485,240,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFF94646" FontSize="20" Foreground="#FFFBF7F7"/>
+        <Button x:Name="deleteBtn" Content="ลบ" HorizontalAlignment="Left" Height="60" Margin="485,240,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFF94646" FontSize="20" Foreground="#FFFBF7F7" Click="deleteBtn_Click"/>
         <Button x:Name="editBtn" Content="แก้ไข" HorizontalAlignment="Left" Height="60" Margin="485,160,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFFDF781" FontSize="20"/>
         <Image x:Name="imgSearch" HorizontalAlignment="Left" Height="25" Margin="460,30,0,0" VerticalAlignment="Top" Width="44" Source="Search.png" RenderTransformOrigin="0.909,-1.2" OpacityMask="Black"/>
         <Button x:Name="searchBtn" Content="ค้นหา" HorizontalAlignment="Left" Height="35" Margin="405,25,0,0" VerticalAlignment="Top" Width="50" Click="searchBtn_Click"/>

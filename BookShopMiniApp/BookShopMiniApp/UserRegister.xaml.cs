@@ -125,5 +125,24 @@ namespace BookShopMiniApp
                 db.Close();
             }
         }
+
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtUserID.Text))
+            {
+                MessageBox.Show("Please input 'UserID' for delete");
+            }
+            else
+            {
+                if (MessageBox.Show("Do you want to delete : " + txtUserID.Text + " ?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    Login_User.DeleteData(txtUserID.Text);
+                    MessageBox.Show("Delete user : " + txtUserID.Text + " complete", "Delete complete");
+                    Clear();
+                }
+
+            }
+            
+        }
     }
 }

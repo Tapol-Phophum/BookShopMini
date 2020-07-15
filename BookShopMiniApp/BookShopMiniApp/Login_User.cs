@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -69,23 +70,20 @@ namespace BookShopMiniApp
             }
             return entries;
         }
-        public static void CheckAuthorLogin(string userName, string passWord)
+        public static void DeleteData(string userID)
         {
-            string sql = "SELECT* from MyLogin WHERE UserName ='" + userName + "'AND Password ='" + passWord + "'";
             using (SqliteConnection db =
-                   new SqliteConnection($"Filename={dbpath}"))
+                new SqliteConnection($"Filename={dbpath}"))
             {
                 db.Open();
-                SqliteCommand selectCommand = new SqliteCommand(sql, db);
-                SqliteDataReader query = selectCommand.ExecuteReader();
-                while (query.Read())
-                {
-                    Welcome welcome = new Welcome(userName);
-                    welcome.Show();
-                    return;
-                }
+                String deleteCommand = "delete from MyLogin where UserID = '" + userID + "' ";
+
+                SqliteCommand deleteData = new SqliteCommand(deleteCommand, db);
+
+                deleteData.ExecuteReader();
+
                 db.Close();
             }
-        }
+        //}  //delete user data where Email
     }
 }

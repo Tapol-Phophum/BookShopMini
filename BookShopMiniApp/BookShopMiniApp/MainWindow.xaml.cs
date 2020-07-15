@@ -21,6 +21,7 @@ namespace BookShopMiniApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static string dbpath = "LoginTable.db"; //Create object: db for index path
         public MainWindow()
         {
             InitializeComponent();
@@ -28,17 +29,6 @@ namespace BookShopMiniApp
             DataAccessUser.InitializeLoginDatabase();
             txtUserName.Focus();
         }
-
-        //private void txtUserName_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    txtUserName.Text = "";
-        //}
-
-        //private void txtPassword_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    txtPassword.Password = "";
-        //}
-
         private void addUserBtn_Click(object sender, RoutedEventArgs e)
         {
             if ((txtUserName.Text == "Admin") || (txtUserName.Text == "admin"))
@@ -47,7 +37,6 @@ namespace BookShopMiniApp
                 {
 
                     UserRegister userRegister = new UserRegister();
-                    this.Close();
                     userRegister.Show();
                 }
                 else
@@ -62,7 +51,35 @@ namespace BookShopMiniApp
         }
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            Login_User.CheckAuthorLogin(txtUserName.Text, txtPassword.Password);
+            if(string.IsNullOrEmpty(txtUserName.Text))
+            {
+                MessageBox.Show("Please input Username");
+            }
+            else if(string.IsNullOrEmpty(txtPassword.Password))
+            {
+                MessageBox.Show("Please input Password");
+            }
+            else
+            {
+                string userName = txtUserName.Text;
+                string passWord = txtPassword.Password;
+                string sql = "SELECT* from MyLogin WHERE UserName ='" + userName + "'AND Password ='" + passWord + "'";
+                using (SqliteConnection db =
+                       new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
+                    SqliteCommand selectCommand = new SqliteCommand(sql, db);
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+                    while (query.Read())
+                    {
+                        this.Hide();
+                        Welcome welcome = new Welcome(userName);
+                        welcome.Show();
+                        return;
+                    }
+                    db.Close();
+                }
+            }
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)
@@ -101,6 +118,17 @@ namespace BookShopMiniApp
         private void ShowPassword_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             HidePasswordFunction();
+        }
+
+        private void txtUserName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtUserName.Text = "";
+        }
+
+        private void txtPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtPassword.Password = "";
+            txtPasswordUnmask.Text = "";
         }
     }
 }
