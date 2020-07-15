@@ -44,8 +44,11 @@ namespace BookShopMiniApp
             // ทำการบันทึกข้อมูล
             Login_User.AddData(login_User.UserID1, login_User.UserName1,login_User.AuthorLevel1, login_User.Password1);
 
+
             MessageBox.Show("Add data completed");
             Clear();
+            searchBtn_Click (sender, e);
+
         }
         private bool CheckWhetherBox()
         {
@@ -94,6 +97,7 @@ namespace BookShopMiniApp
         }
         private void Clear()
         {
+            txtSearch.Text = "";
             txtUserID.Text = "";
             txtUsername.Text = "";
             txtPassword.Text = "";
@@ -132,17 +136,38 @@ namespace BookShopMiniApp
             {
                 MessageBox.Show("Please input 'UserID' for delete");
             }
-            else
+            else if(DialogBox.Confirm("Delete",txtUserID.Text))
             {
-                if (MessageBox.Show("Do you want to delete : " + txtUserID.Text + " ?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                string search = txtUserID.Text;
+                List<Login_User> listdata = new List<Login_User>();
+                using (SqliteConnection db = new SqliteConnection("Filename=LoginTable.db"))
+                {
+                    db.Open();
+
+                    SqliteCommand selectCommand = new SqliteCommand
+                        ("SELECT * from MyLogin where UserID like " + "'" + search + "'", db);
+
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        //listdata.Add(new Login_User { UserID1 = query.GetString(0),  UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
+                        listdata.Add(new Login_User { UserID1 = query.GetString(0), UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
+                    }
+                    db.Close();
+                }
+                if((listdata.Count)>0)
                 {
                     Login_User.DeleteData(txtUserID.Text);
                     MessageBox.Show("Delete user : " + txtUserID.Text + " complete", "Delete complete");
                     Clear();
+                    searchBtn_Click(sender, e);
                 }
-
+                else
+                {
+                    MessageBox.Show("Data Not Found" + " " + search);
+                }
             }
-            
         }
     }
 }
