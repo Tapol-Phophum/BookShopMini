@@ -2,25 +2,38 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BookShopMiniApp
 {
-    class Login_User
+    class User
     {
-        private string UserID;
-        private string UserName;
-        private string AuthorLevel;
-        private string Password;
+        private string userID;
+        private string userName;
+        private string authorLevel;
+        private string password;
 
-        public string UserID1 { get => UserID; set => UserID = value; }
-        public string UserName1 { get => UserName; set => UserName = value; }
-        public string Password1 { get => Password; set => Password = value; }
-        public string AuthorLevel1 { get => AuthorLevel; set => AuthorLevel = value; }
+       public User()
+        {
+
+        }
 
         private static string dbpath = "LoginTable.db"; //Create object: db for index path
+
+        public string UserID { get => userID; set => userID = value; }
+        public string UserName { get => userName; set => userName = value; }
+        public string AuthorLevel { get => authorLevel; set => authorLevel = value; }
+        public string Password { get => password; set => password = value; }
+
+        public User(string userID, string userName, string authorLevel, string password)
+        {
+            UserID = userID;
+            UserName = userName;
+            AuthorLevel = authorLevel;
+            Password = password;
+        }
+
         public static void AddData(string UserID1, string UserName1, string AuthorLevel1, string Password1)
         {
             using (SqliteConnection db =
@@ -70,6 +83,58 @@ namespace BookShopMiniApp
             }
             return entries;
         }
+        public static List<String> GetData(string search)
+        {
+            List<String> entries = new List<string>();
+
+            using (SqliteConnection db =
+               new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+
+                SqliteCommand selectCommand = new SqliteCommand
+                    ("SELECT * from MyLogin where UserID like " + "'" + search + "'", db);
+                SqliteDataReader query = selectCommand.ExecuteReader();
+
+                int i = 0;
+                while (query.Read())
+                {
+                    entries.Add(query.GetString(i));
+                    i++;
+                }
+                db.Close();
+            }
+            return entries;
+        }
+           public static List<List<String>> SearchItem(string search)
+        {
+            List<List<String>> entries = new List<List<String>>();
+            using (SqliteConnection db =
+               new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand searchCommand = new SqliteCommand
+                ("SELECT * from MyLogin where UserID like " + "'%" + search + "%'" +
+                                   " or UserName like" + "'%" + search + "%'"
+                                   + " or Password like" + "'%" + search + "%'", db);
+                SqliteDataReader query = searchCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    int i = 0;
+                    List<string> searchResult = new List<string>();
+                    while (i < query.FieldCount)
+                    {
+                        searchResult.Add(query.GetString(i));
+                        i++;
+                    }
+                    entries.Add(searchResult);
+                }
+                db.Close();
+            }
+            return entries;
+        }
+
         public static void DeleteData(string userID)
         {
             using (SqliteConnection db =
@@ -84,6 +149,6 @@ namespace BookShopMiniApp
 
                 db.Close();
             }
-        } 
+        }
     }
 }

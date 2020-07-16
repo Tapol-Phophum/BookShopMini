@@ -20,6 +20,7 @@ namespace BookShopMiniApp
     /// </summary>
     public partial class UserRegister : Window
     {
+        private List<List<string>> searchResult;
         string lblContent = "";
         public UserRegister()
         {
@@ -28,7 +29,7 @@ namespace BookShopMiniApp
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            Login_User login_User = new Login_User();
+            User user = new User();
             if (CheckWhetherBox())
             {
                 MessageBox.Show("Please Input data in :" + lblContent);
@@ -37,12 +38,12 @@ namespace BookShopMiniApp
             }
             else
 
-            login_User.UserID1 = txtUserID.Text;
-            login_User.UserName1 = txtUsername.Text;
-            login_User.AuthorLevel1 = cboLevelAuthor.Text;
-            login_User.Password1 = txtPassword.Text;
+            user.UserID = txtUserID.Text;
+            user.UserName = txtUsername.Text;
+            user.AuthorLevel = cboLevelAuthor.Text;
+            user.Password = txtPassword.Text;
             // ทำการบันทึกข้อมูล
-            Login_User.AddData(login_User.UserID1, login_User.UserName1,login_User.AuthorLevel1, login_User.Password1);
+            User.AddData(user.UserID, user.UserName, user.AuthorLevel, user.Password);
 
 
             MessageBox.Show("Add data completed");
@@ -106,28 +107,8 @@ namespace BookShopMiniApp
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
-           
-            string search = txtSearch.Text;
-            List<Login_User> listdata = new List<Login_User>();
-            using (SqliteConnection db = new SqliteConnection("Filename=LoginTable.db"))
-            {
-                db.Open();
-
-                SqliteCommand selectCommand = new SqliteCommand
-                    ("SELECT * from MyLogin where UserID like " + "'%" + search + "%'" +
-                    " or UserName like" + "'%" + search + "%'"
-                    + " or Password like" + "'%" + search + "%'", db);
-
-                SqliteDataReader query = selectCommand.ExecuteReader();
-
-                while (query.Read())
-                {
-                    //listdata.Add(new Login_User { UserID1 = query.GetString(0),  UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
-                    listdata.Add(new Login_User { UserID1 = query.GetString(0),  UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
-                }
-                dgvUser.ItemsSource = listdata;
-                db.Close();
-            }
+            searchResult = User.SearchItem(txtSearch.Text);
+            dataSearchShow(searchResult);
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
@@ -138,35 +119,36 @@ namespace BookShopMiniApp
             }
             else if(DialogBox.Confirm("Delete",txtUserID.Text))
             {
-                string search = txtUserID.Text;
-                List<Login_User> listdata = new List<Login_User>();
-                using (SqliteConnection db = new SqliteConnection("Filename=LoginTable.db"))
+                User.GetData(txtUserID.Text);
+                User.DeleteData(txtUserID.Text);
+                MessageBox.Show("Delete user : " + txtUserID.Text + " complete", "Delete complete");
+                Clear();
+                searchBtn_Click(sender, e);
+            }
+        }
+        public void dataSearchShow(List<List<string>> searchResult)
+        {
+            List<List<string>> dataFound = new List<List<string>>();
+            int i = 0;
+            foreach (List<string> searchItem in searchResult)
+            {
+                dataFound.Add(searchItem);
+                i++;
+            }
+            if (dataFound.Count == 0)
+            {
+                MessageBox.Show("Data Not Found.");
+            }
+            else
+            {
+                List<DataList> user = new List<DataList>();
+                List<Table> items = new List<Table>();
+                int numberOfList = dataFound.Count();
+                for (int j = 0; j < numberOfList; j++)
                 {
-                    db.Open();
-
-                    SqliteCommand selectCommand = new SqliteCommand
-                        ("SELECT * from MyLogin where UserID like " + "'" + search + "'", db);
-
-                    SqliteDataReader query = selectCommand.ExecuteReader();
-
-                    while (query.Read())
-                    {
-                        //listdata.Add(new Login_User { UserID1 = query.GetString(0),  UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
-                        listdata.Add(new Login_User { UserID1 = query.GetString(0), UserName1 = query.GetString(1), AuthorLevel1 = query.GetString(2), Password1 = query.GetString(3) });
-                    }
-                    db.Close();
+                    user.Add(new DataList(dataFound[j][0], dataFound[j][1], dataFound[j][2], dataFound[j][3]));
                 }
-                if((listdata.Count)>0)
-                {
-                    Login_User.DeleteData(txtUserID.Text);
-                    MessageBox.Show("Delete user : " + txtUserID.Text + " complete", "Delete complete");
-                    Clear();
-                    searchBtn_Click(sender, e);
-                }
-                else
-                {
-                    MessageBox.Show("Data Not Found" + " " + search);
-                }
+                customersListView.ItemsSource = user;
             }
         }
     }
