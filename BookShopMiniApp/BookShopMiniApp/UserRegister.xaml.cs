@@ -141,8 +141,9 @@ namespace BookShopMiniApp
             }
             else
             {
-                List<DataList> user = new List<DataList>();
-                List<Table> items = new List<Table>();
+               // List<User> user = new List<User>();
+               List<DataList> user = new List<DataList>();
+                //List<Table> items = new List<Table>();
                 int numberOfList = dataFound.Count();
                 for (int j = 0; j < numberOfList; j++)
                 {

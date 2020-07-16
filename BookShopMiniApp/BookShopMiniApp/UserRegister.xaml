@@ -30,7 +30,7 @@
                     <GridViewColumn Header="รหัสพนักงาน" Width="80" DisplayMemberBinding="{Binding CustomerId}" />
                     <GridViewColumn Header="ชื่อผู้ใช้" Width="200" DisplayMemberBinding="{Binding CustomerName}" />
                     <GridViewColumn Header="สิทธิ" Width="70" DisplayMemberBinding="{Binding Address}" />
-                    <GridViewColumn Header="รหัสผ่าน" Width="100" DisplayMemberBinding="{Binding Email}" />
+                    <GridViewColumn Header="รหัสผ่าน" Width="150" DisplayMemberBinding="{Binding Email}" />
                     <GridView.ColumnHeaderContainerStyle>
                         <Style TargetType="{x:Type GridViewColumnHeader}">
                             <Setter Property="IsEnabled" Value="False"/>
