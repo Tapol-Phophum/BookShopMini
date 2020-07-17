@@ -22,6 +22,7 @@ namespace BookShopMiniApp
     {
         private List<List<string>> searchResult;
         string lblContent = "";
+        private string userID;
         public UserRegister()
         {
             InitializeComponent();
@@ -37,24 +38,42 @@ namespace BookShopMiniApp
                 return;
             }
             else
-
-            user.UserID = txtUserID.Text;
-            user.UserName = txtUsername.Text;
-            user.AuthorLevel = cboLevelAuthor.Text;
-            user.Password = txtPassword.Text;
-
-            if(txtPassword.Text == txtPassword2.Text)
             {
-                // ทำการบันทึกข้อมูล
-                User.AddData(user.UserID, user.UserName, user.AuthorLevel, user.Password);
-                MessageBox.Show("Successfully Add User");
-                Clear();
-                searchBtn_Click(sender, e);
-            }
-            else
-            {
-                lblMsg.Foreground = new SolidColorBrush(Colors.Red);
-                lblMsg.Content = "Not Mached";
+                searchResult = User.SearchItem("UserID", txtUserID.Text);
+
+                List<List<string>> dataFound = new List<List<string>>();
+                int i = 0;
+                foreach (List<string> searchItem in searchResult)
+                {
+                    dataFound.Add(searchItem);
+                    i++;
+                }
+                if (dataFound.Count == 0)
+                {
+                    user.UserID = txtUserID.Text;
+                    user.UserName = txtUsername.Text;
+                    user.AuthorLevel = cboLevelAuthor.Text;
+                    user.Password = txtPassword.Text;
+
+                    if (txtPassword.Text == txtPassword2.Text)
+                    {
+                        // ทำการบันทึกข้อมูล
+                        User.AddData(user.UserID, user.UserName, user.AuthorLevel, user.Password);
+                        MessageBox.Show("Successfully Add User");
+                        Clear();
+                        searchBtn_Click(sender, e);
+                    }
+                    else
+                    {
+                        lblMsg.Foreground = new SolidColorBrush(Colors.Red);
+                        lblMsg.Content = "Not Mached";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Add user : " + txtUserID.Text + Environment.NewLine
+                       + "Cannot Add New User: Because UserID is Unique", "Add  Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         private bool CheckWhetherBox()
@@ -115,17 +134,18 @@ namespace BookShopMiniApp
         {
             searchResult = User.SearchItem(txtSearch.Text);
             dataSearchShow(searchResult);
+            Clear();
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(txtSearch.Text))
+            if (String.IsNullOrEmpty(txtUserID.Text))
             {
                 MessageBox.Show("Please input 'UserID' for delete");
             }
-            else if(DialogBox.Confirm("Delete",txtSearch.Text))
+            else if(DialogBox.Confirm("Delete",txtUserID.Text))
             {
-                searchResult = User.SearchItem("UserID",txtSearch.Text);
+                searchResult = User.SearchItem("UserID", txtUserID.Text);
                
                 List<List<string>> dataFound = new List<List<string>>();
                 int i = 0;
@@ -141,8 +161,8 @@ namespace BookShopMiniApp
                 }
                 else
                 {
-                    User.DeleteData(txtSearch.Text);
-                    MessageBox.Show("Delete user : " + txtSearch.Text + " complete", "Delete complete");
+                    User.DeleteData(txtUserID.Text);
+                    MessageBox.Show("Delete user : " + txtUserID.Text + " complete", "Delete complete");
                     Clear();
                 }
                 searchBtn_Click(sender, e);
@@ -182,13 +202,20 @@ namespace BookShopMiniApp
             }
             else if (DialogBox.Confirm("Update", txtUserID.Text))
             {
-                User.GetData(txtUserID.Text);
-                User.UpdateData(txtUserID.Text,txtUsername.Text,cboLevelAuthor.Text,txtPassword.Text);
-                MessageBox.Show("Update user : " + txtUserID.Text + " complete", "Update complete");
-                Clear();
-                searchBtn_Click(sender, e);
+                if (txtPassword.Text == txtPassword2.Text)
+                {
+                    User.UpdateData(txtUserID.Text, txtUsername.Text, cboLevelAuthor.Text, txtPassword.Text);
+                    MessageBox.Show("Update user : " + txtUserID.Text + " complete", "Update complete");
+                    Clear();
+                    searchBtn_Click(sender, e);
+                }
+                else
+                {
+                    lblMsg.Foreground = new SolidColorBrush(Colors.Red);
+                    MessageBox.Show("Update user : " + txtUserID.Text + Environment.NewLine
+                    + "Cannot update Password Not Mached", "Update Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-
         }
 
         private void txtPassword2_KeyUp(object sender, KeyEventArgs e)
@@ -228,6 +255,26 @@ namespace BookShopMiniApp
                 default:
                     break;
             }
+        }
+
+        private void customersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            User selectedUser = (User)customersListView.SelectedItem;
+            if(selectedUser!=null)
+            {
+                this.userID = selectedUser.UserID;
+                txtUserID.Text = selectedUser.UserID;
+                txtUsername.Text = selectedUser.UserName;
+                cboLevelAuthor.Text = selectedUser.AuthorLevel;
+                txtPassword.Text = selectedUser.Password;
+                txtSearch.Text = "";
+
+            }
+        }
+
+        private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Text = "";
         }
     }
 }

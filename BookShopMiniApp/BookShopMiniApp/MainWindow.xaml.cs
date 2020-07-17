@@ -127,7 +127,7 @@ namespace BookShopMiniApp
         }
         private void ShowPasswordFunction()
         {
-            ShowPassword.Text = "HIDE";
+            ShowPassword.Text = "Hide Password";
             txtPasswordUnmask.Visibility = Visibility.Visible;
             txtPassword.Visibility = Visibility.Hidden;
             txtPasswordUnmask.Text = txtPassword.Password;
@@ -135,7 +135,7 @@ namespace BookShopMiniApp
 
         private void HidePasswordFunction()
         {
-            ShowPassword.Text = "SHOW";
+            ShowPassword.Text = "Show Password";
             txtPasswordUnmask.Visibility = Visibility.Hidden;
             txtPassword.Visibility = Visibility.Visible;
         }

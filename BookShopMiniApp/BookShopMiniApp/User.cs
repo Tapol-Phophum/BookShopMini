@@ -165,10 +165,10 @@ namespace BookShopMiniApp
 
                 SqliteCommand updateDataCommand = new SqliteCommand();
                 updateDataCommand.Connection = db;
-                updateDataCommand.CommandText = "UPDATE MyLogin SET UserName = @UserName, Author = @AuthorLevel, Password = @Password, Where UserID = @UserID;";
-                updateDataCommand.Parameters.AddWithValue("@UserName", UserID);
-                updateDataCommand.Parameters.AddWithValue("@Title", UserName);
-                updateDataCommand.Parameters.AddWithValue("@Author", AuthorLevel);
+                updateDataCommand.CommandText = "UPDATE MyLogin SET UserName = @UserName, AuthorLevel = @AuthorLevel, Password = @Password WHERE UserID = @UserID;";
+                updateDataCommand.Parameters.AddWithValue("@UserID", UserID);
+                updateDataCommand.Parameters.AddWithValue("@UserName", UserName);
+                updateDataCommand.Parameters.AddWithValue("@AuthorLevel", AuthorLevel);
                 updateDataCommand.Parameters.AddWithValue("@Password", Password);
                 updateDataCommand.ExecuteReader();
                 db.Close();

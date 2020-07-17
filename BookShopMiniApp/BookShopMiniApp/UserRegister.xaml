@@ -30,10 +30,10 @@
         <Button x:Name="deleteBtn" Content="ลบ" HorizontalAlignment="Left" Height="35" Margin="475,205,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFF94646" FontSize="20" Foreground="#FFFBF7F7" Click="deleteBtn_Click"/>
         <Button x:Name="editBtn" Content="แก้ไข" HorizontalAlignment="Left" Height="36" Margin="475,145,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFFDF781" FontSize="20" Click="editBtn_Click"/>
         <Label x:Name="lblUserID_Copy" Content="รายการค้นหา" HorizontalAlignment="Left" Height="27" Margin="5,38,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
-        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Height="35" Margin="180,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" MaxLength="20"/>
+        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Height="35" Margin="180,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" MaxLength="20" GotFocus="txtSearch_GotFocus"/>
         <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="35" Margin="180,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20"/>
         <TextBox x:Name="txtPassword2" HorizontalAlignment="Left" Height="35" Margin="180,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20" KeyUp="txtPassword2_KeyUp"/>
-        <ListView x:Name="customersListView" HorizontalAlignment="Left" Height="325" Margin="65,320,0,0" VerticalAlignment="Top" Width="495">
+        <ListView x:Name="customersListView" HorizontalAlignment="Left" Height="325" Margin="65,320,0,0" VerticalAlignment="Top" Width="495" SelectionChanged="customersListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridView.ColumnHeaderContainerStyle>
