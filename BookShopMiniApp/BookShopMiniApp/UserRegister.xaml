@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookShopMiniApp"
         mc:Ignorable="d"
-        Title="UserRegister" Height="700" Width="650" Loaded="Window_Loaded_1">
+        Title="UserRegister" Height="700" Width="640" Loaded="Window_Loaded_1">
     <Grid>
+        <Border Margin="417,25,142,604">
+            <Grid Margin="-10,-25,-20,-5">
+                <Grid HorizontalAlignment="Left" Width="98" Margin="3,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="searchBtn" Content="ค้นหา" HorizontalAlignment="Left" Width="90" Click="searchBtn_Click" Margin="0,25,0,10"/>
+                    <Image x:Name="imgSearch" HorizontalAlignment="Left" Height="25" Margin="3,10,0,0" VerticalAlignment="Top" Width="25" Source="Search.png" RenderTransformOrigin="0.909,-1.2" OpacityMask="Black"/>
+                </Grid>
+            </Grid>
+        </Border>
         <Label x:Name="lblUserName" Content="ชื่อผ้ใช้" HorizontalAlignment="Left" Height="27" Margin="5,125,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label x:Name="lblPassword" Content="รหัสผ่าน" HorizontalAlignment="Left" Height="27" Margin="5,210,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <Label x:Name="lblPassword2" Content="ยืนยันรหัสผ่าน" HorizontalAlignment="Left" Height="27" Margin="10,250,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
@@ -14,31 +25,31 @@
         <Label x:Name="lblUserID" Content="รหัสพนักงาน" HorizontalAlignment="Left" Height="27" Margin="5,85,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <TextBox x:Name="txtUserID" HorizontalAlignment="Left" Height="35" Margin="179,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271" MaxLength="20"/>
         <Label x:Name="lblAuthor" Content="ระดับการเข้าถึงข้อมูล 1-5" HorizontalAlignment="Left" Height="27" Margin="10,168,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
-        <ComboBox x:Name="cboLevelAuthor" HorizontalAlignment="Left" Height="35" Margin="180,165,0,0" VerticalAlignment="Top" Width="90"/>
-        <Button x:Name="addBtn" Content="เพิ่ม" HorizontalAlignment="Left" Height="60" Margin="485,80,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFABFB68" FontSize="20" Click="addBtn_Click"/>
-        <Button x:Name="deleteBtn" Content="ลบ" HorizontalAlignment="Left" Height="60" Margin="485,240,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFF94646" FontSize="20" Foreground="#FFFBF7F7" Click="deleteBtn_Click"/>
-        <Button x:Name="editBtn" Content="แก้ไข" HorizontalAlignment="Left" Height="60" Margin="485,160,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFFDF781" FontSize="20"/>
-        <Image x:Name="imgSearch" HorizontalAlignment="Left" Height="25" Margin="460,30,0,0" VerticalAlignment="Top" Width="44" Source="Search.png" RenderTransformOrigin="0.909,-1.2" OpacityMask="Black"/>
-        <Button x:Name="searchBtn" Content="ค้นหา" HorizontalAlignment="Left" Height="35" Margin="405,25,0,0" VerticalAlignment="Top" Width="50" Click="searchBtn_Click"/>
+        <ComboBox x:Name="cboLevelAuthor" HorizontalAlignment="Left" Height="35" Margin="180,165,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="cboLevelAuthor_SelectionChanged"/>
+        <Button x:Name="addBtn" Content="เพิ่ม" HorizontalAlignment="Left" Height="35" Margin="475,85,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFABFB68" FontSize="20" Click="addBtn_Click"/>
+        <Button x:Name="deleteBtn" Content="ลบ" HorizontalAlignment="Left" Height="35" Margin="475,205,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFF94646" FontSize="20" Foreground="#FFFBF7F7" Click="deleteBtn_Click"/>
+        <Button x:Name="editBtn" Content="แก้ไข" HorizontalAlignment="Left" Height="36" Margin="475,145,0,0" VerticalAlignment="Top" Width="85" TabIndex="15" Background="#FFFDF781" FontSize="20" Click="editBtn_Click"/>
         <Label x:Name="lblUserID_Copy" Content="รายการค้นหา" HorizontalAlignment="Left" Height="27" Margin="5,38,0,0" VerticalAlignment="Top" Width="155" HorizontalContentAlignment="Right" FontSize="14"/>
         <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Height="35" Margin="180,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" MaxLength="20"/>
         <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="35" Margin="180,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20"/>
-        <TextBox x:Name="txtPassword2" HorizontalAlignment="Left" Height="35" Margin="180,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20"/>
-        <ListView x:Name="customersListView" HorizontalAlignment="Left" Height="325" Margin="60,320,0,0" VerticalAlignment="Top" Width="495">
+        <TextBox x:Name="txtPassword2" HorizontalAlignment="Left" Height="35" Margin="180,255,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" MaxLength="20" KeyUp="txtPassword2_KeyUp"/>
+        <ListView x:Name="customersListView" HorizontalAlignment="Left" Height="325" Margin="65,320,0,0" VerticalAlignment="Top" Width="495">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="รหัสพนักงาน" Width="80" DisplayMemberBinding="{Binding CustomerId}" />
-                    <GridViewColumn Header="ชื่อผู้ใช้" Width="200" DisplayMemberBinding="{Binding CustomerName}" />
-                    <GridViewColumn Header="สิทธิ" Width="70" DisplayMemberBinding="{Binding Address}" />
-                    <GridViewColumn Header="รหัสผ่าน" Width="150" DisplayMemberBinding="{Binding Email}" />
                     <GridView.ColumnHeaderContainerStyle>
                         <Style TargetType="{x:Type GridViewColumnHeader}">
                             <Setter Property="IsEnabled" Value="False"/>
                         </Style>
                     </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="รหัสพนักงาน" Width="80" DisplayMemberBinding="{Binding UserID}" />
+                    <GridViewColumn Header="ชื่อผู้ใช้" Width="200" DisplayMemberBinding="{Binding UserName}" />
+                    <GridViewColumn Header="สิทธิ" Width="70" DisplayMemberBinding="{Binding AuthorLevel}" />
+                    <GridViewColumn Header="รหัสผ่าน" Width="150" DisplayMemberBinding="{Binding Password}" />
                 </GridView>
             </ListView.View>
         </ListView>
+        <Label x:Name="lblMsg" Content="...." HorizontalAlignment="Left" Height="25" Margin="455,265,0,0" VerticalAlignment="Top" Width="95" FontSize="14"/>
+        <Label x:Name="lblAuthorDetail" Content="...." HorizontalAlignment="Left" Height="35" Margin="280,165,0,0" VerticalAlignment="Top" Width="170" FontSize="14"/>
 
     </Grid>
 </Window>

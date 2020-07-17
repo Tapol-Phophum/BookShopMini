@@ -31,22 +31,57 @@ namespace BookShopMiniApp
         }
         private void addUserBtn_Click(object sender, RoutedEventArgs e)
         {
-            if ((txtUserName.Text == "Admin") || (txtUserName.Text == "admin"))
+            string result;
+            if (String.IsNullOrEmpty(txtUserName.Text))
             {
-                if (txtPassword.Password == "admin")
-                {
-
-                    UserRegister userRegister = new UserRegister();
-                    userRegister.Show();
-                }
-                else
-                {
-                    MessageBox.Show("โปรดติดต่อผู้ขายขอ Password ที่ถูกต้อง");
-                }
+                MessageBox.Show("Please input 'UserID' for delete");
+            }
+            else if (string.IsNullOrEmpty(txtPassword.Password))
+            {
+                MessageBox.Show("Please input Password");
             }
             else
             {
-                MessageBox.Show("โปรดติดต่อผู้ขายขอ UserName ที่ถูกต้อง");
+                using (SqliteConnection db =
+               new SqliteConnection($"Filename={dbpath}"))
+                {
+                    db.Open();
+                    SqliteCommand selectCommand = new SqliteCommand
+                   ("SELECT COUNT (*) FROM MyLogin", db);
+                    SqliteDataReader query = selectCommand.ExecuteReader();
+                    while (query.Read())
+                    {
+                        result = query.GetString(0);
+                        if (result == "0")
+                        {
+                            UserRegister userRegister = new UserRegister();
+                            userRegister.Show();
+                        }
+                        else
+                        {
+                            string userName = txtUserName.Text;
+                            string passWord = txtPassword.Password;
+                            string sql = "SELECT * FROM MyLogin WHERE UserName ='" + userName + "' AND Password ='" + passWord + "' AND AuthorLevel ='5'";
+                            using (SqliteConnection db1 =
+                                   new SqliteConnection($"Filename={dbpath}"))
+                            {
+                                db1.Open();
+                                SqliteCommand selectCommand1 = new SqliteCommand(sql, db1);
+                                SqliteDataReader query1 = selectCommand1.ExecuteReader();
+                                while (query1.Read())
+                                {
+                                    this.Hide();
+                                    UserRegister userRegister = new UserRegister();
+                                    userRegister.Show();
+                                    return;
+                                }
+                                db1.Close();
+                            }
+                        }
+                        //MessageBox.Show(result.ToString());
+                    }
+                    db.Close();
+                }
             }
         }
         private void loginBtn_Click(object sender, RoutedEventArgs e)

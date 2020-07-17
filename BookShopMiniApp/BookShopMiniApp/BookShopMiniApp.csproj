@@ -87,7 +87,6 @@
     </ApplicationDefinition>
     <Compile Include="DataAccessBooks.cs" />
     <Compile Include="DataAccessUser.cs" />
-    <Compile Include="DataList.cs" />
     <Compile Include="DialogBox.cs" />
     <Compile Include="TransactionPurchase.xaml.cs">
       <DependentUpon>TransactionPurchase.xaml</DependentUpon>

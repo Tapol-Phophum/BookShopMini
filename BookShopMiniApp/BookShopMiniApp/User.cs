@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookShopMiniApp
 {
@@ -14,11 +16,6 @@ namespace BookShopMiniApp
         private string authorLevel;
         private string password;
 
-       public User()
-        {
-
-        }
-
         private static string dbpath = "LoginTable.db"; //Create object: db for index path
 
         public string UserID { get => userID; set => userID = value; }
@@ -26,6 +23,10 @@ namespace BookShopMiniApp
         public string AuthorLevel { get => authorLevel; set => authorLevel = value; }
         public string Password { get => password; set => password = value; }
 
+        public User()
+        {
+
+        }
         public User(string userID, string userName, string authorLevel, string password)
         {
             UserID = userID;
@@ -34,7 +35,7 @@ namespace BookShopMiniApp
             Password = password;
         }
 
-        public static void AddData(string UserID1, string UserName1, string AuthorLevel1, string Password1)
+        public static void AddData(string UserID, string UserName, string AuthorLevel, string Password)
         {
             using (SqliteConnection db =
              new SqliteConnection($"Filename={dbpath}"))
@@ -45,20 +46,15 @@ namespace BookShopMiniApp
                 insertCommand.Connection = db;
 
                 // Use parameterized query to prevent SQL injection attacks //ป้องกันการโจมตีฐานข้อมูล ข้อมูลต้องไม่เป็น SQL command
-                insertCommand.CommandText = "INSERT INTO MyLogin VALUES ('" + UserID1 + "', @UserName, @Author, @Password);";
-                insertCommand.Parameters.AddWithValue("@UserName", UserName1);
-                insertCommand.Parameters.AddWithValue("@Author", AuthorLevel1);
-                insertCommand.Parameters.AddWithValue("@Password", Password1);
+                insertCommand.CommandText = "INSERT INTO MyLogin VALUES ('" + UserID + "', @UserName, @Author, @Password);";
+                insertCommand.Parameters.AddWithValue("@UserName", UserName);
+                insertCommand.Parameters.AddWithValue("@Author", AuthorLevel);
+                insertCommand.Parameters.AddWithValue("@Password", Password);
                 insertCommand.ExecuteReader();
 
                 db.Close();
             }
         }
-
-        //internal static void AddData(string userID1, string userName1, string authorLevel1, string password1)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public static List<String> GetData()
         {
@@ -86,7 +82,6 @@ namespace BookShopMiniApp
         public static List<String> GetData(string search)
         {
             List<String> entries = new List<string>();
-
             using (SqliteConnection db =
                new SqliteConnection($"Filename={dbpath}"))
             {
@@ -106,7 +101,8 @@ namespace BookShopMiniApp
             }
             return entries;
         }
-           public static List<List<String>> SearchItem(string search)
+
+        public static List<List<String>> SearchItem(string search)
         {
             List<List<String>> entries = new List<List<String>>();
             using (SqliteConnection db =
@@ -129,10 +125,55 @@ namespace BookShopMiniApp
                         i++;
                     }
                     entries.Add(searchResult);
+                }                  
+                db.Close();
+            }
+            return entries;
+        }
+        public static List<List<String>> SearchItem(string whereColoum,string searchExact)
+        {
+            List<List<String>> entries = new List<List<String>>();
+            using (SqliteConnection db =
+               new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+                SqliteCommand searchCommand = new SqliteCommand
+                ("SELECT * from MyLogin WHERE " + whereColoum + " like " + "'" + searchExact + "'", db);
+                SqliteDataReader query = searchCommand.ExecuteReader();
+
+                while (query.Read())
+                {
+                    int i = 0;
+                    List<string> searchResult = new List<string>();
+                    while (i < query.FieldCount)
+                    {
+                        searchResult.Add(query.GetString(i));
+                        i++;
+                    }
+                    entries.Add(searchResult);
                 }
                 db.Close();
             }
             return entries;
+        }
+        public static void UpdateData(string UserID, string UserName, string AuthorLevel, string Password)
+        {
+            using (SqliteConnection db =
+             new SqliteConnection($"Filename={dbpath}"))
+            {
+                db.Open();
+
+                SqliteCommand updateDataCommand = new SqliteCommand();
+                updateDataCommand.Connection = db;
+                updateDataCommand.CommandText = "UPDATE MyLogin SET UserName = @UserName, Author = @AuthorLevel, Password = @Password, Where UserID = @UserID;";
+                updateDataCommand.Parameters.AddWithValue("@UserName", UserID);
+                updateDataCommand.Parameters.AddWithValue("@Title", UserName);
+                updateDataCommand.Parameters.AddWithValue("@Author", AuthorLevel);
+                updateDataCommand.Parameters.AddWithValue("@Password", Password);
+                updateDataCommand.ExecuteReader();
+                db.Close();
+            }
+
         }
 
         public static void DeleteData(string userID)
